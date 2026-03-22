@@ -49,7 +49,7 @@ The platform simplifies complex procedures by presenting step-by-step informatio
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend:
 - React.js  

@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from 'react';
 import Navigation from './Navigation';
 import HeroSection from './HeroSection';

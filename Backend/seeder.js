@@ -1,3 +1,5 @@
+
+
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const Document = require('./models/Document'); 
@@ -10,7 +12,7 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-       
+        // --- CORRECTED: Removed deprecated options ---
         await mongoose.connect(process.env.MONGO_URI); 
         // ---------------------------------------------
 

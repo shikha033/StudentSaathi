@@ -1,14 +1,18 @@
+// Backend/routes/documents.js
+
 const express = require('express');
 const router = express.Router();
 const Document = require('../models/Document');
 
-
+// @route   GET /api/documents
+// @desc    Get ALL documents, categorized for the homepage
+// @access  Public
 router.get('/', async (req, res) => {
     try {
-       
+        // Fetch only the name and category fields
         const documents = await Document.find({}).select('document_name category');
 
-       
+        // Group the documents by category
         const categories = {};
         documents.forEach(doc => {
             const cat = doc.category;
@@ -28,7 +32,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-
+// @route   GET /api/documents/search?q=keyword
+// @desc    Search documents by name, category or description (powers the search bar)
+// @access  Public
+// 🚨 IMPORTANT: this route MUST be declared before "/:id" below.
+//    Express matches routes top-to-bottom, and "/:id" would otherwise catch
+//    a request to "/search" and try to look up a document with _id "search".
 router.get('/search', async (req, res) => {
     try {
         const q = (req.query.q || '').trim();
@@ -37,7 +46,9 @@ router.get('/search', async (req, res) => {
             return res.json([]);
         }
 
-       
+        // Case-insensitive partial match across the three text fields.
+        // (Using regex instead of $text search so partial words like "aadh"
+        // still match "Aadhaar" — friendlier for a live-typing search box.)
         const regex = new RegExp(q, 'i');
         const results = await Document.find({
             $or: [
@@ -59,7 +70,9 @@ router.get('/search', async (req, res) => {
     }
 });
 
-
+// @route   GET /api/documents/:id
+// @desc    Get detailed information for a single document
+// @access  Public
 router.get('/:id', async (req, res) => {
     try {
         // Find one document by its MongoDB ID

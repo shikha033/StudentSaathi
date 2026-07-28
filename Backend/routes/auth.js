@@ -1,16 +1,22 @@
+// Backend/routes/auth.js
+
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-
+// Helper function to generate JWT token
+// 👉 Uses JWT_SECRET from your .env file — make sure it's set, or every
+//    login/register call will crash with "secretOrPrivateKey is required".
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: '30d',
     });
 };
 
-
+// @route   POST /api/auth/register
+// @desc    Register a new user
+// @access  Public
 router.post('/register', async (req, res) => {
     const { name, email, password } = req.body;
 
@@ -47,7 +53,9 @@ router.post('/register', async (req, res) => {
 });
 
 
-
+// @route   POST /api/auth/login
+// @desc    Authenticate user and get token
+// @access  Public
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 

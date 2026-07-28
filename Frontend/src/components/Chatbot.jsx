@@ -1,5 +1,3 @@
-
-
 import { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
 import { API_BASE_URL } from '../config';

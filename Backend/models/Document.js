@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 const LinkSchema = new mongoose.Schema({
@@ -50,7 +49,8 @@ const DocumentSchema = new mongoose.Schema({
     }
 });
 
-
+// Text index so the /api/documents/search route can do fast keyword search
+// across name, category and description in one query.
 DocumentSchema.index({ document_name: 'text', category: 'text', description: 'text' });
 
 module.exports = mongoose.model('Document', DocumentSchema);

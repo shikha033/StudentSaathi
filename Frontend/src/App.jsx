@@ -1,4 +1,3 @@
-// src/App.jsx
 
 import { useState, useEffect } from 'react';
 import HomePage from './components/HomePage';
@@ -9,13 +8,13 @@ import Chatbot from './components/Chatbot';
 import { LogOut, User } from 'lucide-react';
 
 function App() {
-
+    // Which view to show: 'login', 'register', or 'app' (main content)
     const [currentMode, setCurrentMode] = useState('login');
     const [selectedDocumentId, setSelectedDocumentId] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userName, setUserName] = useState('');
 
-    
+    // Check for existing token on mount (initial load)
     useEffect(() => {
         const token = localStorage.getItem('userToken');
         const name = localStorage.getItem('userName');
@@ -51,7 +50,7 @@ function App() {
         setSelectedDocumentId(null);
     };
 
-    
+    // 1. Render Login/Register Forms if NOT logged in
     if (!isLoggedIn) {
         if (currentMode === 'register') {
             return <Register onLogin={() => setCurrentMode('login')} onSuccess={handleLoginSuccess} />;
@@ -59,7 +58,7 @@ function App() {
         return <Login onRegister={() => setCurrentMode('register')} onSuccess={handleLoginSuccess} />;
     }
 
-
+    // 2. Render Main Application if LOGGED IN
     return (
         <div className="min-h-screen bg-gray-50">
             <header className="bg-white/90 backdrop-blur-md shadow-sm border-b border-blue-100 sticky top-0 z-40">
@@ -94,7 +93,7 @@ function App() {
                 )}
             </main>
 
-
+            {/* Floating chatbot widget, available everywhere in the logged-in app */}
             <Chatbot />
         </div>
     );

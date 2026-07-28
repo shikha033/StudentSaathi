@@ -1,10 +1,3 @@
-// Backend/app.js
-// Builds the Express app itself. Kept separate from server.js so the exact
-// same app can be run two ways:
-//   1) as a normal always-on server (server.js) -> good for Render/Railway
-//   2) as a Vercel serverless function (api/index.js) -> good for Vercel
-// You don't need to touch this file.
-
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -17,7 +10,8 @@ const app = express();
 
 app.use(express.json());
 
-
+// 👉 Set FRONTEND_URL in your .env once deployed, to lock CORS down to just
+//    your Vercel site. Empty/local = allow all origins.
 app.use(cors({
     origin: process.env.FRONTEND_URL || '*'
 }));

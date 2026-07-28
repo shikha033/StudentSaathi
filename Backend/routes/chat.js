@@ -1,13 +1,18 @@
-
+// Backend/routes/chat.js
+// Powers the chatbot widget. Uses Google's Gemini API to answer questions,
+// and gives Gemini some relevant documents from MongoDB as context first
+// (a simple form of "search + AI" — the bot can talk about YOUR data, not
+// just generic knowledge).
 
 const express = require('express');
 const router = express.Router();
 const Document = require('../models/Document');
 
-const GEMINI_MODEL = 'gemini-3.6-flash';
+const GEMINI_MODEL = 'gemini-2.0-flash';
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
-
+// Pull a handful of documents whose name/category/description overlap with
+// whatever the user typed, so Gemini has real StudentSaathi context to answer with.
 async function findRelevantDocuments(message) {
     const words = message
         .toLowerCase()
@@ -30,6 +35,10 @@ async function findRelevantDocuments(message) {
     return docs;
 }
 
+// @route   POST /api/chat
+// @desc    Send a message to the chatbot and get a reply from Gemini
+// @access  Public
+// Body: { message: string, history?: [{ role: 'user'|'model', text: string }] }
 router.post('/', async (req, res) => {
     try {
         const { message, history = [] } = req.body;

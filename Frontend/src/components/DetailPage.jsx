@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Clock, DollarSign, FileText } from 'lucide-react';
 import { API_BASE_URL } from '../config';
@@ -42,7 +43,7 @@ export default function DetailPage({ documentId, onBack }) {
         ));
     };
 
-  
+    // --- RENDERING STATES (Loading/Error/Not Found) ---
 
     if (loading) {
         return (
@@ -64,7 +65,7 @@ export default function DetailPage({ documentId, onBack }) {
         );
     }
 
-  
+    // --- FINAL RENDER ---
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-50">

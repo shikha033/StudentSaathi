@@ -1,5 +1,3 @@
-
-
 import { GraduationCap, BookOpen, Award, Star, Rocket, Lightbulb } from 'lucide-react';
 
 const shapes = [

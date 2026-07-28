@@ -1,7 +1,7 @@
 # 🎓 Student Saathi
 ### One-Stop Digital Guide for Student Empowerment
 
-🌐 **Live Demo:** [StudentSaathi](https://your-deployed-link.vercel.app/)
+🌐 **Live Demo:** [StudentSaathi](https://student-saathi.vercel.app)
 
 Student Saathi is a full-stack platform built to simplify how students deal with ID documents, certificates, government schemes, internships, and academic resources. Instead of searching scattered government websites, students get step-by-step guides, live search, and an AI chatbot — all in one place.
 
